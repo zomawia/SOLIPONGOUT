@@ -54,7 +54,7 @@ void main()
 	sfw::initContext(WINDOW_WIDTH,WINDOW_HEIGHT,"Solipong");
 
 	//unsigned f = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
-	//unsigned d = sfw::loadTextureMap("./res/fontmap.png",16,16);
+	unsigned d = sfw::loadTextureMap("./res/fontmap.png",16,16);
 	unsigned r = sfw::loadTextureMap("./res/background.jpg");
 	//unsigned u = sfw::loadTextureMap("./res/crosshair.png");
 
@@ -62,25 +62,31 @@ void main()
 	Ball myBall[5] = {};
 	BigPaddle myBigPaddle =
 	{
-		PADDLE_X_POS, PADDLE_Y_POS, PADDLE_X_POS+100, PADDLE_Y_POS,			//TOP
-		PADDLE_X_POS, PADDLE_Y_POS -10, PADDLE_X_POS +100, PADDLE_Y_POS -10,	//BOTTOM
+		PADDLE_X_POS, PADDLE_Y_POS, PADDLE_X_POS+200, PADDLE_Y_POS,			//TOP
+		PADDLE_X_POS, PADDLE_Y_POS -10, PADDLE_X_POS +200, PADDLE_Y_POS -10,	//BOTTOM
 		PADDLE_X_POS, PADDLE_Y_POS, PADDLE_X_POS, PADDLE_Y_POS -10,			//LEFT
-		PADDLE_X_POS +100, PADDLE_Y_POS, PADDLE_X_POS +100, PADDLE_Y_POS -10	//RIGHT	
+		PADDLE_X_POS +200, PADDLE_Y_POS, PADDLE_X_POS +200, PADDLE_Y_POS -10	//RIGHT	
 	};
 
 	// create balls in array
 	for (int i = 0; i < 5; ++i)
 	{
-		myBall[i] = createBall(WINDOW_WIDTH/2+i*6, WINDOW_HEIGHT/2+i*12, 0, -7.5, i * 2 + 8);
+		myBall[i] = createBall(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, 0, randomRange(-5, -1), randomRange(8,24));
 	}
 
-	sfw::setBackgroundColor(WHITE);
+
+	
 
 	while (sfw::stepContext())
 	{		
 
-		// Draw Paddle
-		//sfw::drawLine(myPaddle.top.xMin, myPaddle.top.yMin, myPaddle.top.xMax, myPaddle.top.yMax, BLACK);
+		// Draw Background
+		sfw::setBackgroundColor(WHITE);
+		sfw::drawTexture(r, 0, 600, 800, 600, 0, false, 0, 0x8888880F);
+
+		// Draw Score
+		sfw::drawString(d, totalPoints, WINDOW_WIDTH/2, WINDOW_HEIGHT/2, 24, 24);
+
 
 		//Draw Boundary
 		sfw::drawLine(myBoundary.BotLeft.x+1, myBoundary.BotLeft.y+1, myBoundary.TopLeft.x+1, myBoundary.TopLeft.y-1, GREEN);
@@ -114,10 +120,9 @@ void main()
 
 			//Ball bounding for boundaries
 			if (myBall[i].position.y > WINDOW_HEIGHT) // TOP
-			{
-				
-				myBall[i].velocity.x += randomRange(-2, 2);
-				myBall[i].velocity.y *= -1;
+			{				
+				myBall[i].velocity.x += randomRange(-3, 3);
+				myBall[i].velocity.y *= -1*VELOCITY_MULT;
 				
 			}
 			if (myBall[i].position.x > WINDOW_WIDTH)		myBall[i].velocity.x *= -1;	// RIGHT
@@ -162,11 +167,10 @@ void main()
 		//printf("VEL:(%f,%f) Y-POS: (%f)\n", myBall.velocity.x, myBall.velocity.y, myBall.position.y);
 
 		//sfw::drawString(f, " !\"#$%&'()*+,./-\n0123456789:;<=>?\n@ABCDEFGHIJKLMNO\nPQRSTUVWXYZ[\\]^_\n`abcdefghijklmno\npqrstuvwxyz{|}~", 0, 600, 48, 48, 0, ' ');
-		sfw::drawTexture(r, 0, 600, 800, 600, 0, false,0, 0x8888880F);
-		
+				
 		//sfw::drawString(d, "TIME 4 FUN", 400, 300, 48, 48, -acc*24,'\0',MAGENTA);
 
-		//sfw::drawString(d, "6", 400, 32, 24, 24);
+		
 		//sfw::drawString(d, "12", 400, 600 - 32, 24, 24);
 		//sfw::drawString(d, "3", 800-32, 300, 24, 24);
 		//sfw::drawString(d, "9", 32, 300, 24, 24);

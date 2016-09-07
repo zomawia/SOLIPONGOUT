@@ -4,9 +4,10 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 const float PADDLE_Y_POS = WINDOW_HEIGHT / 8;
 const float PADDLE_X_POS = WINDOW_WIDTH / 2 - 50;
-//const Point BALL_START = {WINDOW_WIDTH/2, WINDOW_HEIGHT/2};
-
 const float matrix[16] = { 1,0,0,0,  0,1,0,0, 0,0,1,0, 0,0,0,1 };
+const float VELOCITY_MULT = 1.00f;
+
+char totalPoints = 0;
 
 struct Line
 {
