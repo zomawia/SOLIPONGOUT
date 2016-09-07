@@ -5,7 +5,7 @@ const int WINDOW_HEIGHT = 600;
 const float PADDLE_Y_POS = WINDOW_HEIGHT / 8;
 const float PADDLE_X_POS = WINDOW_WIDTH / 2 - 50;
 const float matrix[16] = { 1,0,0,0,  0,1,0,0, 0,0,1,0, 0,0,0,1 };
-const float VELOCITY_MULT = 1.00f;
+float VELOCITY_MULT = .1f;
 
 int totalPoints = 0;
 
@@ -42,3 +42,11 @@ struct Ball
 	float radius;
 	bool outBounds = false;	
 };
+
+void DrawRectangle(Line top, Line bottom, Line left, Line right, unsigned tint = 0xffffffff);
+
+void UpdateRectangle(BigPaddle &b);
+
+Ball createBall(float posX, float posY, float veloX, float veloY, float radius);
+
+float randomRange(int start, int end);
