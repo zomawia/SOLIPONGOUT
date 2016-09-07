@@ -5,7 +5,8 @@ const int WINDOW_HEIGHT = 600;
 const float PADDLE_Y_POS = WINDOW_HEIGHT / 8;
 const float PADDLE_X_POS = WINDOW_WIDTH / 2 - 50;
 const float matrix[16] = { 1,0,0,0,  0,1,0,0, 0,0,1,0, 0,0,0,1 };
-float VELOCITY_MULT = .1f;
+bool bisGameOver = false;
+int BallsLeft = 5;
 
 int totalPoints = 0;
 
@@ -40,7 +41,10 @@ struct Ball
 {
 	Point position, velocity;
 	float radius;
-	bool outBounds = false;	
+	bool outBounds = false;
+	bool bBallDestroyed = false;
+	float velocityMult = .15f;
+
 };
 
 void DrawRectangle(Line top, Line bottom, Line left, Line right, unsigned tint = 0xffffffff);
