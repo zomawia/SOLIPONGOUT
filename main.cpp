@@ -2,8 +2,17 @@
 // <zomawia@gmail.com>
 
 #include <cstdio>
+#include <cstdlib>
 #include "sfwdraw.h"
 #include "solipong.h"
+#include <time.h>
+
+float randomRange(int start, int end)
+{
+	
+	return (rand() % (end - start + 1) + start);
+
+}
 
 void DrawRectangle(Line top, Line bottom, Line left, Line right, unsigned tint = 0xffffffff)
 {
@@ -26,18 +35,31 @@ void UpdateRectangle(BigPaddle &b)
 	b.Right.xMax = sfw::getMouseX() + 100;
 }
 
+Ball createBall(float posX, float posY, float veloX,float veloY, float radius)
+{
+	Ball temp;
+
+	temp.position.x = posX;
+	temp.position.y = posY;
+	temp.velocity.x = veloX;
+	temp.velocity.y = veloY;
+	temp.radius = radius;
+
+	return temp;
+}
+
 void main()
 {
+	srand(time(0)); // seeding
 	sfw::initContext(WINDOW_WIDTH,WINDOW_HEIGHT,"Solipong");
 
 	//unsigned f = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
 	//unsigned d = sfw::loadTextureMap("./res/fontmap.png",16,16);
-	//unsigned r = sfw::loadTextureMap("./res/background.jpg");
+	unsigned r = sfw::loadTextureMap("./res/background.jpg");
 	//unsigned u = sfw::loadTextureMap("./res/crosshair.png");
 
 	Boundary myBoundary = {};
-	Paddle myPaddle = {100,PADDLE_Y_POS,200,PADDLE_Y_POS};
-	Ball myBall[5] = {WINDOW_WIDTH/2, WINDOW_HEIGHT/2, 0, 0, 12};
+	Ball myBall[5] = {};
 	BigPaddle myBigPaddle =
 	{
 		PADDLE_X_POS, PADDLE_Y_POS, PADDLE_X_POS+100, PADDLE_Y_POS,			//TOP
@@ -46,31 +68,19 @@ void main()
 		PADDLE_X_POS +100, PADDLE_Y_POS, PADDLE_X_POS +100, PADDLE_Y_POS -10	//RIGHT	
 	};
 
-	//float acc = 0;
-	//char c = '\0';
-
+	// create balls in array
+	for (int i = 0; i < 5; ++i)
+	{
+		myBall[i] = createBall(WINDOW_WIDTH/2+i*6, WINDOW_HEIGHT/2+i*12, 0, -7.5, i * 2 + 8);
+	}
 
 	sfw::setBackgroundColor(WHITE);
 
-	for (int i = 0; i < 5; ++i)
-	{
-		myBall[i].velocity.x = i+.5;
-		myBall[i].velocity.y = i+.5;
-	}
-
-	//sfw::setProjectionMatrix(matrix);
-
 	while (sfw::stepContext())
-	{	
-		
+	{		
+
 		// Draw Paddle
 		//sfw::drawLine(myPaddle.top.xMin, myPaddle.top.yMin, myPaddle.top.xMax, myPaddle.top.yMax, BLACK);
-
-		// Draw Ball
-		for (int i = 0; i < 5; ++i)
-		{
-			sfw::drawCircle(myBall[i].position.x+i, myBall[i].position.y+i, 6, 8, MAGENTA );
-		}
 
 		//Draw Boundary
 		sfw::drawLine(myBoundary.BotLeft.x+1, myBoundary.BotLeft.y+1, myBoundary.TopLeft.x+1, myBoundary.TopLeft.y-1, GREEN);
@@ -92,63 +102,67 @@ void main()
 
 		// Update BigPaddle
 		UpdateRectangle(myBigPaddle);
-
-		//Update ball location
+		
 		for (int i = 0; i < 5; ++i)
 		{
+			// Draw Ball
+			sfw::drawCircle(myBall[i].position.x, myBall[i].position.y, myBall[i].radius, 16, MAGENTA);
+			
+			//Update ball location
 			myBall[i].position.x += myBall[i].velocity.x;
 			myBall[i].position.y += myBall[i].velocity.y;
-		}
-		
-		
-		// Paddle bounding for boundaries
-		
-		if (myPaddle.top.xMin < 0)
-		{
-			myPaddle.top.xMin = 5;
-			myPaddle.top.xMax = myPaddle.top.xMin + 100;
-		}
-		if (myPaddle.top.xMax > WINDOW_WIDTH)
-		{
-			myPaddle.top.xMax = WINDOW_WIDTH - 5;
-			myPaddle.top.xMin = myPaddle.top.xMax - 100;
-		}
-		if (myPaddle.top.yMin > WINDOW_HEIGHT / 6 || myPaddle.top.yMax > WINDOW_HEIGHT / 3)
-		{
-			myPaddle.top.yMin = WINDOW_HEIGHT / 6;
-			myPaddle.top.yMax = WINDOW_HEIGHT / 6;
-		}
 
-		if (myPaddle.top.yMin < 0 || myPaddle.top.yMax < 0)
-		{
-			myPaddle.top.yMin = 5;
-			myPaddle.top.yMax = 5;
-		}
-
-		for (int i = 0; i < 5; ++i)
-		{
 			//Ball bounding for boundaries
-			if (myBall[i].position.y > WINDOW_HEIGHT) 		myBall[i].velocity.y *= -1;	// TOP
+			if (myBall[i].position.y > WINDOW_HEIGHT) // TOP
+			{
+				
+				myBall[i].velocity.x += randomRange(-2, 2);
+				myBall[i].velocity.y *= -1;
+				
+			}
 			if (myBall[i].position.x > WINDOW_WIDTH)		myBall[i].velocity.x *= -1;	// RIGHT
-			//if (myBall.position.y < 0)					myBall.velocity.y *= -1;	// BOTTOM
 			if (myBall[i].position.x < 0)					myBall[i].velocity.x *= -1;	// LEFT
 
-
 			//Ball collision for paddle
-			if (myBall[i].position.x >= myBigPaddle.Top.xMin &&
-				myBall[i].position.x <= myBigPaddle.Top.xMax &&
-				myBall[i].position.y == PADDLE_Y_POS)
+			if ( (myBall[i].position.y <= PADDLE_Y_POS) && (myBall[i].position.x >= myBigPaddle.Top.xMin && myBall[i].position.x <= myBigPaddle.Top.xMax))
 			{
+				myBall[i].position.y = PADDLE_Y_POS;
 				myBall[i].velocity.x *= 1;
 				myBall[i].velocity.y *= -1;
 			}
 		}
 		
+		// Paddle bounding for boundaries
+		
+		//if (myPaddle.top.xMin < 0)
+		//{
+		//	myPaddle.top.xMin = 5;
+		//	myPaddle.top.xMax = myPaddle.top.xMin + 100;
+		//}
+		//if (myPaddle.top.xMax > WINDOW_WIDTH)
+		//{
+		//	myPaddle.top.xMax = WINDOW_WIDTH - 5;
+		//	myPaddle.top.xMin = myPaddle.top.xMax - 100;
+		//}
+		//if (myPaddle.top.yMin > WINDOW_HEIGHT / 6 || myPaddle.top.yMax > WINDOW_HEIGHT / 3)
+		//{
+		//	myPaddle.top.yMin = WINDOW_HEIGHT / 6;
+		//	myPaddle.top.yMax = WINDOW_HEIGHT / 6;
+		//}
+
+		//if (myPaddle.top.yMin < 0 || myPaddle.top.yMax < 0)
+		//{
+		//	myPaddle.top.yMin = 5;
+		//	myPaddle.top.yMax = 5;
+		//}
+
+
+		
 
 		//printf("VEL:(%f,%f) Y-POS: (%f)\n", myBall.velocity.x, myBall.velocity.y, myBall.position.y);
 
 		//sfw::drawString(f, " !\"#$%&'()*+,./-\n0123456789:;<=>?\n@ABCDEFGHIJKLMNO\nPQRSTUVWXYZ[\\]^_\n`abcdefghijklmno\npqrstuvwxyz{|}~", 0, 600, 48, 48, 0, ' ');
-		//sfw::drawTexture(r, 0, 600, 800, 600, 0, false,0, 0x88888888);
+		sfw::drawTexture(r, 0, 600, 800, 600, 0, false,0, 0x8888880F);
 		
 		//sfw::drawString(d, "TIME 4 FUN", 400, 300, 48, 48, -acc*24,'\0',MAGENTA);
 
