@@ -6,6 +6,7 @@
 #include "sfwdraw.h"
 #include "solipong.h"
 #include <time.h>
+#include <string> 
 
 float randomRange(int start, int end)
 {
@@ -53,7 +54,7 @@ void main()
 	srand(time(0)); // seeding
 	sfw::initContext(WINDOW_WIDTH,WINDOW_HEIGHT,"Solipong");
 
-	//unsigned f = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
+	unsigned f = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
 	unsigned d = sfw::loadTextureMap("./res/fontmap.png",16,16);
 	unsigned r = sfw::loadTextureMap("./res/background.jpg");
 	//unsigned u = sfw::loadTextureMap("./res/crosshair.png");
@@ -85,10 +86,11 @@ void main()
 		sfw::drawTexture(r, 0, 600, 800, 600, 0, false, 0, 0x8888880F);
 
 		// Draw Score
-		sfw::drawString(d, totalPoints, WINDOW_WIDTH/2, WINDOW_HEIGHT/2, 24, 24);
+		//sfw::drawString(d, std::to_string(totalPoints).c_str, WINDOW_WIDTH/2, WINDOW_HEIGHT/2, 24, 24);
+		//sfw::drawString(f, "0", WINDOW_WIDTH/2-128, WINDOW_HEIGHT/2+128, 256, 256, 0, ' ', 0xbfbfbf3f);
 
 
-		//Draw Boundary
+		//Draw Boundary Lines
 		sfw::drawLine(myBoundary.BotLeft.x+1, myBoundary.BotLeft.y+1, myBoundary.TopLeft.x+1, myBoundary.TopLeft.y-1, GREEN);
 		sfw::drawLine(myBoundary.TopLeft.x + 1, myBoundary.TopLeft.y - 1, myBoundary.TopRight.x - 1, myBoundary.TopRight.y - 1, GREEN);
 		sfw::drawLine(myBoundary.TopRight.x - 1, myBoundary.TopRight.y - 1, myBoundary.BottomRight.x - 1, myBoundary.BottomRight.y + 1, GREEN);
@@ -112,7 +114,7 @@ void main()
 		for (int i = 0; i < 5; ++i)
 		{
 			// Draw Ball
-			sfw::drawCircle(myBall[i].position.x, myBall[i].position.y, myBall[i].radius, 16, MAGENTA);
+			sfw::drawCircle(myBall[i].position.x, myBall[i].position.y, myBall[i].radius, 16, BLACK);
 			
 			//Update ball location
 			myBall[i].position.x += myBall[i].velocity.x;
@@ -129,12 +131,14 @@ void main()
 			if (myBall[i].position.x < 0)					myBall[i].velocity.x *= -1;	// LEFT
 
 			//Ball collision for paddle
-			if ( (myBall[i].position.y <= PADDLE_Y_POS) && (myBall[i].position.x >= myBigPaddle.Top.xMin && myBall[i].position.x <= myBigPaddle.Top.xMax))
+			
+			if (myBall[i].outBounds==false && (myBall[i].position.y <= PADDLE_Y_POS) && (myBall[i].position.x >= myBigPaddle.Top.xMin && myBall[i].position.x <= myBigPaddle.Top.xMax))
 			{
-				myBall[i].position.y = PADDLE_Y_POS;
 				myBall[i].velocity.x *= 1;
-				myBall[i].velocity.y *= -1;
+				myBall[i].velocity.y *= -1;				
 			}
+
+			if (myBall[i].position.y < PADDLE_Y_POS) myBall[i].outBounds = true;
 		}
 		
 		// Paddle bounding for boundaries
@@ -166,7 +170,7 @@ void main()
 
 		//printf("VEL:(%f,%f) Y-POS: (%f)\n", myBall.velocity.x, myBall.velocity.y, myBall.position.y);
 
-		//sfw::drawString(f, " !\"#$%&'()*+,./-\n0123456789:;<=>?\n@ABCDEFGHIJKLMNO\nPQRSTUVWXYZ[\\]^_\n`abcdefghijklmno\npqrstuvwxyz{|}~", 0, 600, 48, 48, 0, ' ');
+		
 				
 		//sfw::drawString(d, "TIME 4 FUN", 400, 300, 48, 48, -acc*24,'\0',MAGENTA);
 

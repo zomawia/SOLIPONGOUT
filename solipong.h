@@ -7,7 +7,7 @@ const float PADDLE_X_POS = WINDOW_WIDTH / 2 - 50;
 const float matrix[16] = { 1,0,0,0,  0,1,0,0, 0,0,1,0, 0,0,0,1 };
 const float VELOCITY_MULT = 1.00f;
 
-char totalPoints = 0;
+int totalPoints = 0;
 
 struct Line
 {
@@ -40,5 +40,5 @@ struct Ball
 {
 	Point position, velocity;
 	float radius;
-	
+	bool outBounds = false;	
 };
