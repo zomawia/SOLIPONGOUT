@@ -121,8 +121,8 @@ void UpdateGameState(GameState &gs) //collision checking and variable updates?
 	for (int i = 0; i < 5; ++i)
 	{
 		//Update ball location
-		gs.myBall[i].position.x += gs.myBall[i].velocity.x;
-		gs.myBall[i].position.y += gs.myBall[i].velocity.y;
+		gs.myBall[i].position.x += gs.myBall[i].velocity.x * sfw::getDeltaTime();
+		gs.myBall[i].position.y += gs.myBall[i].velocity.y * sfw::getDeltaTime();
 
 		//Ball collision for boundaries
 		if (gs.myBall[i].position.y + gs.myBall[i].radius >= WINDOW_HEIGHT) // TOP
@@ -137,12 +137,10 @@ void UpdateGameState(GameState &gs) //collision checking and variable updates?
 
 
 		//Ball collision for paddle			
-		if (gs.myBall[i].position.y - gs.myBall[i].radius <= PADDLE_Y_POS)
-			if (gs.myBall[i].outBounds == false)
+		if (gs.myBall[i].position.y - gs.myBall[i].radius <= PADDLE_Y_POS && gs.myBall[i].outBounds == false)			
 			{
 				if (gs.myBall[i].position.x >= gs.myBox.x && gs.myBall[i].position.x <= gs.myBox.x + gs.myBox.width)
-				{
-					
+				{					
 					gs.myBall[i].position.y += gs.myBox.height;
 					gs.myBall[i].velocity.x *= 1;
 					gs.myBall[i].velocity.y *= -1;
@@ -151,7 +149,7 @@ void UpdateGameState(GameState &gs) //collision checking and variable updates?
 				else if (gs.myBall[i].position.y < PADDLE_Y_POS - 5)
 				{
 					gs.myBall[i].outBounds = true;
-					gs.myBall[i].bBallDestroyed = true;
+					//gs.myBall[i].bBallDestroyed = true;
 					BallsLeft--;
 				}
 
@@ -184,6 +182,8 @@ void DrawGameState(GameState &gs)
 	sfw::drawString(gs.f, "BALLS:", 5, WINDOW_HEIGHT - 5, 24, 24, 0, ' ', 0xbfbfbfaf);
 	sfw::drawString(gs.f, std::to_string(BallsLeft).c_str(), 158, WINDOW_HEIGHT - 5, 24, 24, 0, ' ', 0xbfbfbfff);
 
+	DrawBox(gs.myBox, BLACK, MAGENTA);	// paddle
+	DrawBox(gs.myBorder, GREEN, NONE);	// border
 	//Draw Boundary Lines
 	//sfw::drawLine(gs.myBoundary.BotLeft.x + 1, gs.myBoundary.BotLeft.y + 1, gs.myBoundary.TopLeft.x + 1, gs.myBoundary.TopLeft.y - 1, GREEN);
 	//sfw::drawLine(gs.myBoundary.TopLeft.x + 1, gs.myBoundary.TopLeft.y - 1, gs.myBoundary.TopRight.x - 1, gs.myBoundary.TopRight.y - 1, GREEN);
@@ -192,10 +192,6 @@ void DrawGameState(GameState &gs)
 	//sfw::drawLine(myBoundary.BotLeft.x + 1, myBoundary.BotLeft.y + 1, myBoundary.BottomRight.x - 1, myBoundary.BottomRight.y + 1, GREEN);
 
 	//DrawRectangle(gs.myBigPaddle.Top, gs.myBigPaddle.Bottom, gs.myBigPaddle.Left, gs.myBigPaddle.Right, RED);
-
-	DrawBox(gs.myBox, BLACK, MAGENTA);
-	DrawBox(gs.myBorder, GREEN, NONE);
-	//DrawBox(gs.myBorder.x)
 }
 
 

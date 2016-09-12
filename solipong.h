@@ -12,23 +12,25 @@ int BallsLeft = 5;
 
 int totalPoints = 0;
 
-struct Line
-{
-	float xMin, yMin, xMax, yMax;
-};
+//struct Line
+//{
+//	float xMin, yMin, xMax, yMax;
+//};
+//
 
-struct Point
+//struct Paddle
+//{
+//	Line top;
+//};
+//
+//struct BigPaddle
+//{
+//	Line Top, Bottom, Left, Right;
+//};
+
+struct vector2d
 {
 	float x, y;
-};
-struct Paddle
-{
-	Line top;
-};
-
-struct BigPaddle
-{
-	Line Top, Bottom, Left, Right;
 };
 
 struct Box
@@ -47,17 +49,17 @@ struct Box
 
 struct Ball
 {
-	Point position, velocity;
+	vector2d position, velocity;
 	float radius;
 	bool outBounds = false;
-	bool bBallDestroyed = false;
-	float velocityMult = .15f;
+	//bool bBallDestroyed = false;
+	float velocityMult = 1.0f;
 
 };
 
-void DrawRectangle(Line top, Line bottom, Line left, Line right, unsigned tint = 0xffffffff);
-
-void UpdateRectangle(BigPaddle &b);
+//void DrawRectangle(Line top, Line bottom, Line left, Line right, unsigned tint = 0xffffffff);
+//
+//void UpdateRectangle(BigPaddle &b);
 
 Ball createBall(float posX, float posY, float veloX, float veloY, float radius);
 

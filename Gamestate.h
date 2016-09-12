@@ -7,7 +7,7 @@ struct GameState
 	//Boundary myBoundary = {};
 	Ball myBall[5] = {};
 	int myBallArraySize = 5;
-	BigPaddle myBigPaddle = {};
+	//BigPaddle myBigPaddle = {};
 	Box myBox = {};
 	Box myBorder = {};
 	
