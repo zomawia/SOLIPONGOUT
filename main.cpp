@@ -121,8 +121,8 @@ void UpdateGameState(GameState &gs) //collision checking and variable updates?
 	for (int i = 0; i < 5; ++i)
 	{
 		//Update ball location
-		gs.myBall[i].position.x += gs.myBall[i].velocity.x * sfw::getDeltaTime();
-		gs.myBall[i].position.y += gs.myBall[i].velocity.y * sfw::getDeltaTime();
+		gs.myBall[i].position.x += gs.myBall[i].velocity.x;// * sfw::getDeltaTime();
+		gs.myBall[i].position.y += gs.myBall[i].velocity.y;// * sfw::getDeltaTime();
 
 		//Ball collision for boundaries
 		if (gs.myBall[i].position.y + gs.myBall[i].radius >= WINDOW_HEIGHT) // TOP
@@ -137,7 +137,7 @@ void UpdateGameState(GameState &gs) //collision checking and variable updates?
 
 
 		//Ball collision for paddle			
-		if (gs.myBall[i].position.y - gs.myBall[i].radius <= PADDLE_Y_POS && gs.myBall[i].outBounds == false)			
+		if (gs.myBall[i].position.y - gs.myBall[i].radius <= PADDLE_Y_POS+gs.myBox.height && gs.myBall[i].outBounds == false)			
 			{
 				if (gs.myBall[i].position.x >= gs.myBox.x && gs.myBall[i].position.x <= gs.myBox.x + gs.myBox.width)
 				{					
