@@ -4,11 +4,12 @@
 
 struct GameState
 {
-	Boundary myBoundary = {};
+	//Boundary myBoundary = {};
 	Ball myBall[5] = {};
 	int myBallArraySize = 5;
 	BigPaddle myBigPaddle = {};
 	Box myBox = {};
+	Box myBorder = {};
 	
 	unsigned f = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
 	unsigned d = sfw::loadTextureMap("./res/fontmap.png", 16, 16);

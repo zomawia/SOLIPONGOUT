@@ -37,13 +37,13 @@ struct Box
 	int width, height;
 };
 
-struct Boundary
-{
-	Point BotLeft = { 0, 0 };
-	Point TopLeft = { 0, WINDOW_HEIGHT };
-	Point TopRight = { WINDOW_WIDTH, WINDOW_HEIGHT };
-	Point BottomRight = { WINDOW_WIDTH, 0 };
-};
+//struct Boundary
+//{
+//	Point BotLeft = { 0, 0 };
+//	Point TopLeft = { 0, WINDOW_HEIGHT };
+//	Point TopRight = { WINDOW_WIDTH, WINDOW_HEIGHT };
+//	Point BottomRight = { WINDOW_WIDTH, 0 };
+//};
 
 struct Ball
 {
