@@ -6,7 +6,9 @@ struct GameState
 {
 	Boundary myBoundary = {};
 	Ball myBall[5] = {};
+	int myBallArraySize = 5;
 	BigPaddle myBigPaddle = {};
+	Box myBox = {};
 	
 	unsigned f = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
 	unsigned d = sfw::loadTextureMap("./res/fontmap.png", 16, 16);
@@ -15,7 +17,7 @@ struct GameState
 };
 
 //create gamestate
-void CreateGameState(GameState &gs);
+GameState CreateGameState();
 
 //update function
 void UpdateGameState(GameState &gs);
