@@ -2,12 +2,14 @@
 
 #include "solipong.h"
 
-struct GameState
+class GameState
 {
-	//Boundary myBoundary = {};
+	bool bisGameOver = false;
+	int BallsLeft = 5;
+	int totalPoints = 0;
+
 	Ball myBall[5] = {};
 	int myBallArraySize = 5;
-	//BigPaddle myBigPaddle = {};
 	Box myBox = {};
 	Box myBorder = {};
 	
@@ -15,13 +17,12 @@ struct GameState
 	unsigned d = sfw::loadTextureMap("./res/fontmap.png", 16, 16);
 	unsigned r = sfw::loadTextureMap("./res/background.jpg");
 
+	//create gamestate
+	GameState CreateGameState();
+
+	//update function
+	void UpdateGameState(GameState &gs);
+
+	//draw function
+	void DrawGameState(GameState &gs);
 };
-
-//create gamestate
-GameState CreateGameState();
-
-//update function
-void UpdateGameState(GameState &gs);
-
-//draw function
-void DrawGameState(GameState &gs);
