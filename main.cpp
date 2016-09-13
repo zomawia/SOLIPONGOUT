@@ -19,13 +19,13 @@ void main()
 	srand(time(0)); // seeding
 	sfw::initContext(WINDOW_WIDTH,WINDOW_HEIGHT,"Solipongbreakout");
 
-	GameState gs = CreateGameState();	
+	GameState gs = gs.CreateGameState();	
 
 	// main game loop
 	while (sfw::stepContext())
 	{				
-		UpdateGameState(gs);
-		DrawGameState(gs);	
+		gs.UpdateGameState(gs);
+		gs.DrawGameState(gs);	
 	}
 
 	sfw::termContext();

@@ -4,6 +4,7 @@
 
 class GameState
 {
+private:
 	bool bisGameOver = false;
 	int BallsLeft = 5;
 	int totalPoints = 0;
@@ -17,6 +18,7 @@ class GameState
 	unsigned d = sfw::loadTextureMap("./res/fontmap.png", 16, 16);
 	unsigned r = sfw::loadTextureMap("./res/background.jpg");
 
+public:
 	//create gamestate
 	GameState CreateGameState();
 

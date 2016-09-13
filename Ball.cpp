@@ -14,8 +14,19 @@ void Ball::UpdateBall()
 		position.y += velocity.y;
 }
 
+void Ball::setOut()
+{
+	out = true;
+}
+
+bool Ball::getOut() const
+{
+	return out;
+}
+
 bool Ball::outBounds() const
 {
+	
 	return getPosition().y < PADDLE_Y_POS - 5;
 }
 

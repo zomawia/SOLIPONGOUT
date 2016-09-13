@@ -40,19 +40,20 @@ class Ball
 private:
 	vector2d position, velocity;
 	float radius;
-	
-	float velocityMult = 1.0f;
-public:	
 	bool out = false;
-	
+	float velocityMult = 1.0f;
+
+public:		
 	void setRadius(int r);
 	void setPosition(float x, float y);
 	void setVelocity(float x, float y);
 	void setVelocityMult(float x);
+	void setOut();
 	
 	void UpdateBall();
 
 	bool outBounds() const;
+	bool getOut() const;
 
 	float getRadius() const;
 	vector2d getPosition() const;

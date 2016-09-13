@@ -60,10 +60,9 @@ void GameState::UpdateGameState(GameState & gs)
 				gs.myBall[i].setVelocity(gs.myBall[i].getVelocity().x, -gs.myBall[i].getVelocity().y);
 			}
 
-			else if (!gs.myBall[i].outBounds())
+			else if (!gs.myBall[i].outBounds() && !gs.myBall[i].getOut() )
 			{
-				gs.myBall[i].out = true;
-				//gs.myBall[i].bBallDestroyed = true;
+				gs.myBall[i].setOut();
 				gs.BallsLeft--;
 			}
 		}
