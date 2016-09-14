@@ -1,6 +1,12 @@
 #include "solipong.h"
 #include "sfwdraw.h"
 
+bool Box::isBoxColliding(float x, float y)
+{
+	return position.x < x && x < position.x + width &&
+		   position.y < y && y < position.y + height;
+}
+
 void Box::setPosition(float x, float y)
 {
 	position.x = x;
@@ -36,7 +42,7 @@ Box Box::CreateBox(float x, float y, int width, int height)
 }
 
 // starts drawing from the bottom left corner
-void Box::DrawBox(Box box, unsigned color = BLACK, unsigned fill = MAGENTA) const
+void Box::DrawBox(unsigned color = BLACK, unsigned fill = MAGENTA) const
 {
 	sfw::drawLine(getPosition().x, getPosition().y, 
 		getPosition().x + getDimension().x, getPosition().y, color);					// BOTTOM
@@ -57,8 +63,8 @@ void Box::DrawBox(Box box, unsigned color = BLACK, unsigned fill = MAGENTA) cons
 	}
 }
 
-void Box::UpdateBox(Box &b)
+void Box::UpdateBox()
 {
-	b.setPosition(sfw::getMouseX(),PADDLE_Y_POS);
+	setPosition(sfw::getMouseX(),PADDLE_Y_POS);
 	//b.y = sfw::getMouseY();
 }

@@ -126,12 +126,19 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Box.cpp" />
+    <ClCompile Include="Gameover.cpp" />
     <ClCompile Include="Gamestate.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Splash.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="constded.h" />
+    <ClInclude Include="Gameover.h" />
     <ClInclude Include="Gamestate.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="solipong.h" />
+    <ClInclude Include="Splash.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,30 +1,35 @@
 #pragma once
 
 #include "solipong.h"
+#include "constded.h"
 
 class GameState
 {
 private:
-	bool bisGameOver = false;
-	int BallsLeft = 5;
-	int totalPoints = 0;
+	bool bisGameOver;
+	int BallsLeft;
+	int totalPoints;
 
-	Ball myBall[5] = {};
+	Ball myBall[5];
 	int myBallArraySize = 5;
-	Box myBox = {};
-	Box myBorder = {};
-	
+	Box myBox;
+	Box myBorder;
+
+public:
+
 	unsigned f = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
 	unsigned d = sfw::loadTextureMap("./res/fontmap.png", 16, 16);
 	unsigned r = sfw::loadTextureMap("./res/background.jpg");
+	unsigned u = sfw::loadTextureMap("./res/crosshair.png");
 
-public:
 	//create gamestate
-	GameState CreateGameState();
+	void CreateGameState();
 
 	//update function
-	void UpdateGameState(GameState &gs);
+	void UpdateGameState();
 
 	//draw function
-	void DrawGameState(GameState &gs);
+	void DrawGameState();
+
+	APP_STATE next();
 };

@@ -8,6 +8,7 @@ const float PADDLE_Y_POS = WINDOW_HEIGHT / 8;
 const float PADDLE_X_POS = WINDOW_WIDTH / 2 - 50;
 const int paddleLength = 200;
 const int paddleHeight = 12;
+
 //const float matrix[16] = { 1,0,0,0,  0,1,0,0, 0,0,1,0, 0,0,0,1 };
 //bool bisGameOver = false;
 //int BallsLeft = 5;
@@ -31,8 +32,10 @@ public:
 	vector2d getDimension() const;
 
 	Box CreateBox(float x, float y, int width, int height);
-	void DrawBox(Box box, unsigned color, unsigned fill) const;
-	void UpdateBox(Box &b);
+	void DrawBox(unsigned color, unsigned fill) const;
+	void UpdateBox();
+
+	bool isBoxColliding(float x, float y);
 };
 
 class Ball
