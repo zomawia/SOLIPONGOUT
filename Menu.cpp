@@ -9,6 +9,9 @@ void Menu::init(int a_font, int a_xhair)
 	playButton.setPosition(WINDOW_WIDTH*.35, WINDOW_HEIGHT*.6);
 	playButton.setDimension(WINDOW_WIDTH / 3, 60);
 
+	exitButton.setPosition(WINDOW_WIDTH*.35, WINDOW_HEIGHT*.3);
+	exitButton.setDimension(WINDOW_WIDTH / 3, 60);
+
 }
 
 void Menu::play( )
@@ -57,5 +60,6 @@ APP_STATE Menu::next()
 {
 	if ( sfw::getKey('1') || (playButton.isBoxColliding(sfw::getMouseX(), sfw::getMouseY()) && sfw::getMouseButton(0)))
 		return ENTER_GAME;
+	if (exitButton.isBoxColliding(sfw::getMouseX(), sfw::getMouseY()) && sfw::getMouseButton(0)) return EXIT;
 	return MENU;
 }

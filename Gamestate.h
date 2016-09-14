@@ -17,10 +17,10 @@ private:
 
 public:
 
-	unsigned f = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
-	unsigned d = sfw::loadTextureMap("./res/fontmap.png", 16, 16);
-	unsigned r = sfw::loadTextureMap("./res/background.jpg");
-	unsigned u = sfw::loadTextureMap("./res/crosshair.png");
+	unsigned tonc_font = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
+	unsigned block_font = sfw::loadTextureMap("./res/fontmap.png", 16, 16);
+	unsigned background = sfw::loadTextureMap("./res/background.jpg");
+	unsigned mousecursor = sfw::loadTextureMap("./res/crosshair.png");
 
 	//create gamestate
 	void CreateGameState();

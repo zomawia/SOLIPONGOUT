@@ -34,9 +34,9 @@ void main()
 	srand(time(0)); // seeding
 	sfw::initContext(WINDOW_WIDTH,WINDOW_HEIGHT,"Solipongbreakout");
 		
-	Splash sploosh;
-	Menu mush;
-	Gameover gish;
+	Splash intro;
+	Menu mainMenu;
+	Gameover gameOver;
 
 	bool quit = false;
 	
@@ -44,9 +44,9 @@ void main()
 	
 	GameState gs;
 	
-	sploosh.init(gs.d);
-	mush.init(gs.d, gs.u);
-	gish.init(gs.f);
+	intro.init(gs.block_font);
+	mainMenu.init(gs.block_font, gs.mousecursor);
+	gameOver.init(gs.tonc_font);
 	
 
 	while (sfw::stepContext() && !quit)
@@ -54,19 +54,19 @@ void main()
 		switch (state)
 		{
 		case ENTER_SPLASH:
-			sploosh.play();
+			intro.play();
 		case SPLASH:
-			sploosh.step();
-			sploosh.draw();
-			state = sploosh.next();
+			intro.step();
+			intro.draw();
+			state = intro.next();
 			break;
 
 		case ENTER_MENU:
-			mush.play();
+			mainMenu.play();
 		case MENU:
-			mush.step();
-			mush.draw();
-			state = mush.next();
+			mainMenu.step();
+			mainMenu.draw();
+			state = mainMenu.next();
 			break;
 
 		case ENTER_GAME:
@@ -78,13 +78,13 @@ void main()
 			break;
 
 		case ENTER_GAMEOVER:
-			gish.play();
+			gameOver.play();
 		case GAMEOVER:
 			gs.UpdateGameState();
-			gish.step();
+			gameOver.step();
 			gs.DrawGameState();
-			gish.draw();
-			state = gish.next();
+			gameOver.draw();
+			state = gameOver.next();
 			break;
 
 		case EXIT: quit = true;

@@ -91,16 +91,16 @@ void GameState::DrawGameState()
 
 	// Draw Background
 	sfw::setBackgroundColor(WHITE);
-	sfw::drawTexture(r, 0, 600, 800, 600, 0, false, 0, 0x8888880F);
+	sfw::drawTexture(background, 0, 600, 800, 600, 0, false, 0, 0x8888880F);
 
 	// Draw Score
-	if (totalPoints < 10) sfw::drawString(f, std::to_string(totalPoints).c_str(), 
+	if (totalPoints < 10) sfw::drawString(tonc_font, std::to_string(totalPoints).c_str(), 
 		WINDOW_WIDTH / 2 - 140, WINDOW_HEIGHT / 2 + 150, 300, 300, 0, ' ', 0xbfbfbf31);
-	else sfw::drawString(f, std::to_string(totalPoints).c_str(), 
+	else sfw::drawString(tonc_font, std::to_string(totalPoints).c_str(), 
 		WINDOW_WIDTH / 2 - 300, WINDOW_HEIGHT / 2 + 150, 300, 300, 0, ' ', 0xbfbfbf31);
 
-	sfw::drawString(f, "BALLS:", 5, WINDOW_HEIGHT - 5, 24, 24, 0, ' ', 0xbfbfbfaf);
-	sfw::drawString(f, std::to_string(BallsLeft).c_str(), 158, WINDOW_HEIGHT - 5, 24, 24, 0, ' ', 0xbfbfbfff);
+	sfw::drawString(tonc_font, "BALLS:", 5, WINDOW_HEIGHT - 5, 24, 24, 0, ' ', 0xbfbfbfaf);
+	sfw::drawString(tonc_font, std::to_string(BallsLeft).c_str(), 158, WINDOW_HEIGHT - 5, 24, 24, 0, ' ', 0xbfbfbfff);
 
 	myBox.DrawBox(BLACK, MAGENTA);	// paddle
 	myBorder.DrawBox(GREEN, NONE);	// border
