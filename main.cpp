@@ -37,12 +37,11 @@ void main()
 	Splash intro;
 	Menu mainMenu;
 	Gameover gameOver;
+	GameState gs;
 
 	bool quit = false;
 	
-	APP_STATE state = ENTER_SPLASH;
-	
-	GameState gs;
+	APP_STATE state = ENTER_SPLASH;	
 	
 	intro.init(gs.block_font);
 	mainMenu.init(gs.block_font, gs.mousecursor);

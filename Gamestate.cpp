@@ -110,5 +110,6 @@ void GameState::DrawGameState()
 APP_STATE GameState::next()
 {
 	if (bisGameOver) return ENTER_GAMEOVER;
+	if (sfw::getKey(KEY_ESCAPE)) return ENTER_MENU;
 	return GAME;
 }
