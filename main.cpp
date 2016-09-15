@@ -32,7 +32,7 @@ float randomRange(int start, int end)
 void main()
 {
 	srand(time(0)); // seeding
-	sfw::initContext(WINDOW_WIDTH,WINDOW_HEIGHT,"Solipongbreakout");
+	sfw::initContext(WINDOW_WIDTH,WINDOW_HEIGHT,"Solipongout");
 		
 	Splash intro;
 	Menu mainMenu;
@@ -86,10 +86,7 @@ void main()
 			state = gameOver.next();
 			break;
 
-		case EXIT: quit = true;
-			
-
-			
+		case EXIT: quit = true;			
 		}
 	}
 

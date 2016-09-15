@@ -2,12 +2,16 @@
 
 #include "sfwdraw.h"
 
+#define SOFTRED 0xbfbfbf31
+
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 const float PADDLE_Y_POS = WINDOW_HEIGHT / 8;
 const float PADDLE_X_POS = WINDOW_WIDTH / 2 - 50;
-const int paddleLength = 200;
-const int paddleHeight = 12;
+
+
+//const int paddleLength = 200;
+//const int paddleHeight = 12;
 
 //const float matrix[16] = { 1,0,0,0,  0,1,0,0, 0,0,1,0, 0,0,0,1 };
 //bool bisGameOver = false;
@@ -45,6 +49,7 @@ private:
 	float radius;
 	bool out = false;
 	float velocityMult = 1.0f;
+	Box CollisionBox;
 
 public:		
 	void setRadius(int r);

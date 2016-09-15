@@ -27,7 +27,7 @@ bool Ball::getOut() const
 bool Ball::outBounds() const
 {
 	
-	return getPosition().y < PADDLE_Y_POS - 5;
+	return position.y - radius < PADDLE_Y_POS - 10;
 }
 
 float Ball::getRadius() const {return radius;}

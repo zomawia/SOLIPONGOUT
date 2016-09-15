@@ -7,9 +7,11 @@ void GameState::CreateGameState()
 	BallsLeft = 5;
 	totalPoints = 0;
 	myBall[5] = {};
-	myBox = {};
+	myPaddle = {};
 	myBorder = {};
 	bisGameOver = false;
+
+	tonc_font = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
 
 	// create balls in array with function
 
@@ -19,8 +21,8 @@ void GameState::CreateGameState()
 			randomRange(-3, -1), randomRange(8, 24));
 	}
 
-	myBox = myBox.CreateBox(PADDLE_X_POS, PADDLE_Y_POS, WINDOW_WIDTH / 4, 12);
-	myBorder = myBox.CreateBox(1, 1, WINDOW_WIDTH - 2, WINDOW_HEIGHT - 2);
+	myPaddle = myPaddle.CreateBox(PADDLE_X_POS, PADDLE_Y_POS, WINDOW_WIDTH / 4, 12);
+	//myBorder = myBorder.CreateBox(1, 1, WINDOW_WIDTH - 2, WINDOW_HEIGHT - 2);
 
 }
 
@@ -29,7 +31,7 @@ void GameState::UpdateGameState()
 	// stop updating if game over
 	if (!bisGameOver)
 	{
-		myBox.UpdateBox();
+		myPaddle.UpdateBox();
 	}	
 
 	// Collision stuff
@@ -40,37 +42,73 @@ void GameState::UpdateGameState()
 
 		//Ball collision for boundaries
 		if (myBall[i].getPosition().y + myBall[i].getRadius() >= WINDOW_HEIGHT) // TOP
-		{
-			totalPoints++;
+		{			
 			//gs.myBall[i].setVelocityMult(.05f + gs.myBall[i].getVelocityMult);
 			myBall[i].setVelocity(randomRange(-3, 3), -myBall[i].getVelocity().y);
-			// +gs.myBall[i].getVelocityMult);
-																						
+			// +gs.myBall[i].getVelocityMult);																						
 			//gs.myBall[i].setVelocity.y *= -(1 + gs.myBall[i].getVelocityMult);
 		}
+
 		if (myBall[i].getPosition().x + myBall[i].getRadius() >= WINDOW_WIDTH)
 			myBall[i].setVelocity(-myBall[i].getVelocity().x, myBall[i].getVelocity().y);	// RIGHT
+
 		if (myBall[i].getPosition().x - myBall[i].getRadius() <= 0)
 			myBall[i].setVelocity(-myBall[i].getVelocity().x, myBall[i].getVelocity().y);	// LEFT
 
 
+
 		//Ball collision for paddle			
-		if (myBall[i].getPosition().y - myBall[i].getRadius() <= PADDLE_Y_POS + myBox.getDimension().y
-			&& !myBall[i].outBounds())
+		if ((myBall[i].getPosition().y - myBall[i].getRadius() <= PADDLE_Y_POS + myPaddle.getDimension().y)
+			&& !myBall[i].getOut())
 		{
-			if (myBall[i].getPosition().x >= myBox.getPosition().x &&
-				myBall[i].getPosition().x <= myBox.getPosition().x + myBox.getDimension().x)
+			// top of paddle
+			if (myPaddle.isBoxColliding(myBall[i].getPosition().x, myBall[i].getPosition().y - myBall[i].getRadius()))
 			{
-				myBall[i].setPosition(myBall[i].getPosition().x,
-					myBall[i].getPosition().y + myBox.getDimension().y);
+				// set to clean Y to reduce stutter
+				myBall[i].setPosition(myBall[i].getPosition().x, myBall[i].getPosition().y);
+
 				myBall[i].setVelocity(myBall[i].getVelocity().x, -myBall[i].getVelocity().y);
+				totalPoints++;
+				//printf("Ball %d Collision at: %f %f \n", i, myBall[i].getPosition().x, myBall[i].getPosition().y - myBall[i].getRadius() );
 			}
 
-			else if (!myBall[i].outBounds() && !myBall[i].getOut() )
+			
+			// left paddle
+			else if (myPaddle.isBoxColliding(myBall[i].getPosition().x + myBall[i].getRadius(), myBall[i].getPosition().y))
+			{
+				if (myPaddle.getPosition().y + myPaddle.getDimension().y / 2 < myBall[i].getPosition().y + myBall[i].getRadius())
+				{
+					//myBall[i].setPosition(myBall[i].getPosition().x, myBall[i].getPosition().y);
+					myBall[i].setVelocity(-myBall[i].getVelocity().x, -myBall[i].getVelocity().y);
+				}
+				else
+				{
+					myBall[i].setVelocity(-myBall[i].getVelocity().x, myBall[i].getVelocity().y);
+				}
+
+			}
+
+			// left paddle
+			else if (myPaddle.isBoxColliding(myBall[i].getPosition().x - myBall[i].getRadius(), myBall[i].getPosition().y))
+			{
+				if (myPaddle.getPosition().y + myPaddle.getDimension().y / 2 < myBall[i].getPosition().y - myBall[i].getRadius())
+				{
+					//myBall[i].setPosition(myBall[i].getPosition().x, myBall[i].getPosition().y);
+					myBall[i].setVelocity(-myBall[i].getVelocity().x, -myBall[i].getVelocity().y);
+				}
+				else
+				{
+					myBall[i].setVelocity(-myBall[i].getVelocity().x, myBall[i].getVelocity().y);
+				}
+
+			}
+
+			if (myBall[i].outBounds())
 			{
 				myBall[i].setOut();
 				BallsLeft--;
 			}
+			
 		}
 
 	}
@@ -102,8 +140,10 @@ void GameState::DrawGameState()
 	sfw::drawString(tonc_font, "BALLS:", 5, WINDOW_HEIGHT - 5, 24, 24, 0, ' ', 0xbfbfbfaf);
 	sfw::drawString(tonc_font, std::to_string(BallsLeft).c_str(), 158, WINDOW_HEIGHT - 5, 24, 24, 0, ' ', 0xbfbfbfff);
 
-	myBox.DrawBox(BLACK, MAGENTA);	// paddle
+	myPaddle.DrawBox(BLACK, RED);	// paddle
 	myBorder.DrawBox(GREEN, NONE);	// border
+
+	//printf("x: %f, y: %f\n", myPaddle.getPosition().x, myPaddle.getPosition().y);
 
 }
 

@@ -44,21 +44,17 @@ Box Box::CreateBox(float x, float y, int width, int height)
 // starts drawing from the bottom left corner
 void Box::DrawBox(unsigned color = BLACK, unsigned fill = MAGENTA) const
 {
-	sfw::drawLine(getPosition().x, getPosition().y, 
-		getPosition().x + getDimension().x, getPosition().y, color);					// BOTTOM
-	sfw::drawLine(getPosition().x, getPosition().y, 
-		getPosition().x, getPosition().y + getDimension().y, color);					// LEFT
-	sfw::drawLine(getPosition().x, getPosition().y + getDimension().y,
-		getPosition().x + getDimension().x, getPosition().y + getDimension().y, color); // TOP
-	sfw::drawLine(getPosition().x + width, getPosition().y,
-		getPosition().x + getDimension().x, getPosition().y + getDimension().y, color);	// RIGHT
+	sfw::drawLine(position.x, position.y, position.x + width, position.y, color);					// BOTTOM
+	sfw::drawLine(position.x, position.y, position.x, position.y + height, color);					// LEFT
+	sfw::drawLine(position.x, position.y + height, position.x + width, position.y + height, color); // TOP
+	sfw::drawLine(position.x + width, position.y, position.x + width, position.y + height, color);	// RIGHT
 
 	//FILL
 	if (fill != NONE)
 	{
 		for (int i = height; i > 1; --i)
 		{
-			sfw::drawLine(getPosition().x, getPosition().y + i - 1, getPosition().x + getDimension().x - 1, getPosition().y + i - 1, fill);
+			sfw::drawLine(position.x, position.y + i - 1, position.x + width - 1, position.y + i - 1, fill);
 		}
 	}
 }
@@ -66,5 +62,4 @@ void Box::DrawBox(unsigned color = BLACK, unsigned fill = MAGENTA) const
 void Box::UpdateBox()
 {
 	setPosition(sfw::getMouseX(),PADDLE_Y_POS);
-	//b.y = sfw::getMouseY();
 }

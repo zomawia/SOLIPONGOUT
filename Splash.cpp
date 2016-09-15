@@ -29,9 +29,9 @@ APP_STATE Splash::next()
 		return ENTER_MENU;
 
 	if (sfw::getKey('5'))
-		return ENTER_GAMEOVER;
+		return ENTER_GAME;
 
-	if (timer <= 0)
+	if (timer <= 5.95)
 	{
 		timer = 6.f;
 	}

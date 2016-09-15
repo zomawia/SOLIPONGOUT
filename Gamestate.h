@@ -12,7 +12,7 @@ private:
 
 	Ball myBall[5];
 	int myBallArraySize = 5;
-	Box myBox;
+	Box myPaddle;
 	Box myBorder;
 
 public:
