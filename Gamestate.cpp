@@ -65,7 +65,7 @@ void GameState::UpdateGameState()
 			if (myPaddle.isBoxColliding(myBall[i].getPosition().x, myBall[i].getPosition().y - myBall[i].getRadius()))
 			{
 				// set to clean Y to reduce stutter
-				myBall[i].setPosition(myBall[i].getPosition().x, myBall[i].getPosition().y);
+				myBall[i].setPosition(myBall[i].getPosition().x, PADDLE_Y_POS + myBall[i].getRadius() + myPaddle.getDimension().y);
 
 				myBall[i].setVelocity(myBall[i].getVelocity().x, -myBall[i].getVelocity().y);
 				totalPoints++;
@@ -88,7 +88,7 @@ void GameState::UpdateGameState()
 
 			}
 
-			// left paddle
+			// right paddle
 			else if (myPaddle.isBoxColliding(myBall[i].getPosition().x - myBall[i].getRadius(), myBall[i].getPosition().y))
 			{
 				if (myPaddle.getPosition().y + myPaddle.getDimension().y / 2 < myBall[i].getPosition().y - myBall[i].getRadius())
