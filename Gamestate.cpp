@@ -17,12 +17,12 @@ void GameState::CreateGameState()
 
 	for (int i = 0; i < 5; ++i)
 	{
-		myBall[i] = myBall[i].createBall(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 0, 
+		myBall[i] = myBall[i].createBall(randomRange(16, WINDOW_WIDTH-16), randomRange(WINDOW_HEIGHT/2, WINDOW_HEIGHT-16), randomRange(-3, -1),
 			randomRange(-3, -1), randomRange(8, 24));
 	}
 
-	myPaddle = myPaddle.CreateBox(PADDLE_X_POS, PADDLE_Y_POS, WINDOW_WIDTH / 4, 12);
-	//myBorder = myBorder.CreateBox(1, 1, WINDOW_WIDTH - 2, WINDOW_HEIGHT - 2);
+	myPaddle = myPaddle.CreateBox(PADDLE_X_POS, PADDLE_Y_POS, paddleLength, paddleHeight);
+	myBorder = myBorder.CreateBox(1, 1, WINDOW_WIDTH - 2, WINDOW_HEIGHT - 2);
 
 }
 
@@ -43,10 +43,7 @@ void GameState::UpdateGameState()
 		//Ball collision for boundaries
 		if (myBall[i].getPosition().y + myBall[i].getRadius() >= WINDOW_HEIGHT) // TOP
 		{			
-			//gs.myBall[i].setVelocityMult(.05f + gs.myBall[i].getVelocityMult);
 			myBall[i].setVelocity(randomRange(-3, 3), -myBall[i].getVelocity().y);
-			// +gs.myBall[i].getVelocityMult);																						
-			//gs.myBall[i].setVelocity.y *= -(1 + gs.myBall[i].getVelocityMult);
 		}
 
 		if (myBall[i].getPosition().x + myBall[i].getRadius() >= WINDOW_WIDTH)
@@ -71,36 +68,20 @@ void GameState::UpdateGameState()
 				totalPoints++;
 				//printf("Ball %d Collision at: %f %f \n", i, myBall[i].getPosition().x, myBall[i].getPosition().y - myBall[i].getRadius() );
 			}
-
 			
 			// left paddle
 			else if (myPaddle.isBoxColliding(myBall[i].getPosition().x + myBall[i].getRadius(), myBall[i].getPosition().y))
 			{
-				if (myPaddle.getPosition().y + myPaddle.getDimension().y / 2 < myBall[i].getPosition().y + myBall[i].getRadius())
-				{
-					//myBall[i].setPosition(myBall[i].getPosition().x, myBall[i].getPosition().y);
-					myBall[i].setVelocity(-myBall[i].getVelocity().x, -myBall[i].getVelocity().y);
-				}
-				else
-				{
-					myBall[i].setVelocity(-myBall[i].getVelocity().x, myBall[i].getVelocity().y);
-				}
+				myBall[i].setPosition(myBall[i].getPosition().x - myBall[i].getRadius(), myBall[i].getPosition().y);
+				myBall[i].setVelocity(-myBall[i].getVelocity().x, myBall[i].getVelocity().y);
 
 			}
 
 			// right paddle
 			else if (myPaddle.isBoxColliding(myBall[i].getPosition().x - myBall[i].getRadius(), myBall[i].getPosition().y))
 			{
-				if (myPaddle.getPosition().y + myPaddle.getDimension().y / 2 < myBall[i].getPosition().y - myBall[i].getRadius())
-				{
-					//myBall[i].setPosition(myBall[i].getPosition().x, myBall[i].getPosition().y);
-					myBall[i].setVelocity(-myBall[i].getVelocity().x, -myBall[i].getVelocity().y);
-				}
-				else
-				{
-					myBall[i].setVelocity(-myBall[i].getVelocity().x, myBall[i].getVelocity().y);
-				}
-
+				myBall[i].setPosition(myBall[i].getPosition().x + myBall[i].getRadius(), myBall[i].getPosition().y);
+				myBall[i].setVelocity(-myBall[i].getVelocity().x, myBall[i].getVelocity().y);
 			}
 
 			if (myBall[i].outBounds())

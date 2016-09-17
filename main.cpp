@@ -41,7 +41,7 @@ void main()
 
 	bool quit = false;
 	
-	APP_STATE state = ENTER_SPLASH;	
+	APP_STATE state = ENTER_GAME;	
 	
 	intro.init(gs.block_font);
 	mainMenu.init(gs.block_font, gs.mousecursor);

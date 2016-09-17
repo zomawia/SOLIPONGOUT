@@ -6,14 +6,19 @@
 class GameState
 {
 private:
+	
+	const float paddleLength = WINDOW_WIDTH / 4;
+	const float paddleHeight = WINDOW_WIDTH / 30;
+
 	bool bisGameOver;
 	int BallsLeft;
 	int totalPoints;
-
 	Ball myBall[5];
 	int myBallArraySize = 5;
 	Box myPaddle;
 	Box myBorder;
+
+	
 
 public:
 
