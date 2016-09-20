@@ -16,7 +16,7 @@ void Gameover::draw()
 
 	sfw::drawString(font, "Press SPACEBAR to play again",	25, 125, 25, 25, 0, ' ', 0xbfbfbfff);
 
-	sfw::drawString(font, "ESC to go back to menu.",					25, 100, 25, 25, 0, ' ', 0xbfbfbfff);
+	sfw::drawString(font, "ESC to go back to menu.",		25, 100, 25, 25, 0, ' ', 0xbfbfbfff);
 }
 
 void Gameover::step()

@@ -2,6 +2,7 @@
 
 #include "solipong.h"
 #include "constded.h"
+#include "BossBall.h"
 
 class GameState
 {
@@ -17,8 +18,7 @@ private:
 	int myBallArraySize = 5;
 	Box myPaddle;
 	Box myBorder;
-
-	
+	BossBall myBoss;	
 
 public:
 

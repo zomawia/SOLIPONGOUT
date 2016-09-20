@@ -49,7 +49,7 @@ private:
 	float radius;
 	bool out = false;
 	float velocityMult = 1.0f;
-	Box CollisionBox;
+	//Box CollisionBox;
 
 public:		
 	void setRadius(int r);
@@ -67,8 +67,16 @@ public:
 	vector2d getPosition() const;
 	vector2d getVelocity() const;
 	float getVelocityMult() const;
+	void drawColorBall(float radius) const;
 	Ball createBall(float posX, float posY, float veloX, float veloY, float radius);
+	//Box createCollisionBox(float x, float y, float radius);
+
+	void doCollision(Ball &b);
+
+	bool isColliding(Ball b) const;
+
 	
+
 };
 
 float randomRange(int start, int end);

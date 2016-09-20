@@ -36,6 +36,9 @@
     <ClCompile Include="Gameover.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="BossBall.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="solipong.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Gameover.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BossBall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

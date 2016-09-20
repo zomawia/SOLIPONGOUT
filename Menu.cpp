@@ -32,12 +32,17 @@ void Menu::draw()
 	sfw::drawString(font, buffer, 55, WINDOW_HEIGHT*.9,	64, 64, 0, 0, BLACK);
 	sfw::drawString(font, buffer, 45, WINDOW_HEIGHT*.9+10, 64, 64, 0, 0, WHITE);
 
-	DrawButton(playButton, WINDOW_WIDTH*.35, WINDOW_HEIGHT*.6, WINDOW_WIDTH/3, 60, play, NONE, WHITE);
-	DrawButton(exitButton, WINDOW_WIDTH*.35, WINDOW_HEIGHT*.3, WINDOW_WIDTH/3, 60, exit, NONE, WHITE);
+	if (playButton.isBoxColliding(sfw::getMouseX(), sfw::getMouseY()))
+		DrawButton(playButton, WINDOW_WIDTH*.35, WINDOW_HEIGHT*.6, WINDOW_WIDTH / 4, 80, play, RED, NONE);
+	else DrawButton(playButton, WINDOW_WIDTH*.35, WINDOW_HEIGHT*.6, WINDOW_WIDTH/4, 80, play, NONE, NONE);
+	
+	if (exitButton.isBoxColliding(sfw::getMouseX(), sfw::getMouseY()))
+		DrawButton(exitButton, WINDOW_WIDTH*.35, WINDOW_HEIGHT*.3, WINDOW_WIDTH/4, 80, exit, RED, NONE);
+	else DrawButton(exitButton, WINDOW_WIDTH*.35, WINDOW_HEIGHT*.3, WINDOW_WIDTH / 4, 80, exit, NONE, NONE);
 
-	printf("mouseX: %f mouseY: %f \n", sfw::getMouseX(), sfw::getMouseY());
-	printf("x1: %f y1: %f x2: %f y2: %f\n", playButton.getPosition().x, playButton.getPosition().y,
-		playButton.getPosition().x + playButton.getDimension().x, playButton.getDimension().y);
+	//printf("mouseX: %f mouseY: %f \n", sfw::getMouseX(), sfw::getMouseY());
+	//printf("x1: %f y1: %f x2: %f y2: %f\n", playButton.getPosition().x, playButton.getPosition().y,
+	//	playButton.getPosition().x + playButton.getDimension().x, playButton.getDimension().y);
 
 	sfw::drawTexture(xhair, sfw::getMouseX(), sfw::getMouseY(), sfw::getTextureWidth(xhair) / 6, sfw::getTextureHeight(xhair) / 6, 45, true, 0, 0x88ffffaf);
 }
@@ -61,5 +66,6 @@ APP_STATE Menu::next()
 	if ( sfw::getKey('1') || (playButton.isBoxColliding(sfw::getMouseX(), sfw::getMouseY()) && sfw::getMouseButton(0)))
 		return ENTER_GAME;
 	if (exitButton.isBoxColliding(sfw::getMouseX(), sfw::getMouseY()) && sfw::getMouseButton(0)) return EXIT;
+	//if (sfw::getKey(KEY_ESCAPE)) return EXIT;
 	return MENU;
 }
