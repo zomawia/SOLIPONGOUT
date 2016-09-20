@@ -49,7 +49,7 @@ private:
 	float radius;
 	bool out = false;
 	float velocityMult = 1.0f;
-	//Box CollisionBox;
+	int health;
 
 public:		
 	void setRadius(int r);
@@ -75,7 +75,9 @@ public:
 
 	bool isColliding(Ball b) const;
 
-	
+	void reduceHealth(int dmg);
+	int getHealth() const;
+	void setHealth(int h);
 
 };
 

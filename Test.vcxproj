@@ -131,6 +131,7 @@
     <ClCompile Include="Gamestate.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="particle.cpp" />
     <ClCompile Include="Splash.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +140,7 @@
     <ClInclude Include="Gameover.h" />
     <ClInclude Include="Gamestate.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="particle.h" />
     <ClInclude Include="solipong.h" />
     <ClInclude Include="Splash.h" />
   </ItemGroup>

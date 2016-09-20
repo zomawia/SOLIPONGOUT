@@ -20,6 +20,8 @@ private:
 	Box myBorder;
 	BossBall myBoss;	
 
+	float timer;
+
 public:
 
 	unsigned tonc_font = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);

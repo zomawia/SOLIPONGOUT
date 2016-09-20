@@ -33,12 +33,12 @@ void Menu::draw()
 	sfw::drawString(font, buffer, 45, WINDOW_HEIGHT*.9+10, 64, 64, 0, 0, WHITE);
 
 	if (playButton.isBoxColliding(sfw::getMouseX(), sfw::getMouseY()))
-		DrawButton(playButton, WINDOW_WIDTH*.35, WINDOW_HEIGHT*.6, WINDOW_WIDTH / 4, 80, play, RED, NONE);
-	else DrawButton(playButton, WINDOW_WIDTH*.35, WINDOW_HEIGHT*.6, WINDOW_WIDTH/4, 80, play, NONE, NONE);
+		DrawButton(playButton, WINDOW_WIDTH*.37, WINDOW_HEIGHT*.6, WINDOW_WIDTH / 4, 80, play, BLACK, NONE);
+	else DrawButton(playButton, WINDOW_WIDTH*.37, WINDOW_HEIGHT*.6, WINDOW_WIDTH/4, 80, play, NONE, NONE);
 	
 	if (exitButton.isBoxColliding(sfw::getMouseX(), sfw::getMouseY()))
-		DrawButton(exitButton, WINDOW_WIDTH*.35, WINDOW_HEIGHT*.3, WINDOW_WIDTH/4, 80, exit, RED, NONE);
-	else DrawButton(exitButton, WINDOW_WIDTH*.35, WINDOW_HEIGHT*.3, WINDOW_WIDTH / 4, 80, exit, NONE, NONE);
+		DrawButton(exitButton, WINDOW_WIDTH*.37, WINDOW_HEIGHT*.3, WINDOW_WIDTH/4, 80, exit, BLACK, NONE);
+	else DrawButton(exitButton, WINDOW_WIDTH*.37, WINDOW_HEIGHT*.3, WINDOW_WIDTH / 4, 80, exit, NONE, NONE);
 
 	//printf("mouseX: %f mouseY: %f \n", sfw::getMouseX(), sfw::getMouseY());
 	//printf("x1: %f y1: %f x2: %f y2: %f\n", playButton.getPosition().x, playButton.getPosition().y,

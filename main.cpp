@@ -38,6 +38,7 @@ void main()
 	Menu mainMenu;
 	Gameover gameOver;
 	GameState gs;
+	BossBall bs;
 
 	bool quit = false;
 	
@@ -46,6 +47,7 @@ void main()
 	intro.init(gs.block_font);
 	mainMenu.init(gs.block_font, gs.mousecursor);
 	gameOver.init(gs.tonc_font);
+	bs.init(gs.tonc_font);
 	
 
 	while (sfw::stepContext() && !quit)

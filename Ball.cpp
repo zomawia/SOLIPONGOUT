@@ -1,6 +1,20 @@
 #include "solipong.h"
 #include <math.h>
 
+Ball Ball::createBall(float posX, float posY, float veloX, float veloY, float radius)
+{
+	Ball temp;
+
+	temp.position.x = posX;
+	temp.position.y = posY;
+	temp.velocity.x = veloX;
+	temp.velocity.y = veloY;
+	temp.radius = radius;
+	temp.health = 10;
+
+	return temp;
+}
+
 void Ball::setRadius(int r){radius = r;}
 
 void Ball::setPosition(float x, float y){ position.x = x; position.y = y;}
@@ -9,14 +23,15 @@ void Ball::setVelocity(float x, float y) { velocity.x = x; velocity.y = y; }
 
 void Ball::setVelocityMult(float x) { velocityMult = x; }
 
-//Box Ball::createCollisionBox(float x, float y, float radius)
-//{
-//	CollisionBox.setPosition(position.x - radius, position.y - radius);
-//	CollisionBox.setDimension(radius * 2, radius * 2);
-//}
+void Ball::reduceHealth(int dmg) { health -= dmg; }
+
+int Ball::getHealth() const { return health; }
+
+void Ball::setHealth(int h) { health = h; }
+	
 
 bool Ball::isColliding(Ball b) const
-{
+{	
 	float distance = sqrt(	((position.x - b.position.x) * (position.x - b.position.x))
 							+ ((position.y - b.position.y) * (position.y - b.position.y))
 							);
@@ -35,7 +50,7 @@ bool Ball::isColliding(Ball b) const
 
 void Ball::doCollision(Ball &b)
 {
-	//http://ericleong.me/research/circle-circle/
+	// algorithm from: http://ericleong.me/research/circle-circle/
 
 	float distance = sqrt(((position.x - b.position.x) * (position.x - b.position.x))
 		+ ((position.y - b.position.y) * (position.y - b.position.y))
@@ -70,7 +85,6 @@ void Ball::UpdateBall()
 {
 		position.x += velocity.x;
 		position.y += velocity.y;
-		//CollisionBox.setPosition(position.x - radius, position.y - radius);
 }
 
 void Ball::setOut()
@@ -96,19 +110,6 @@ vector2d Ball::getPosition() const {return position;}
 vector2d Ball::getVelocity()const {return velocity;}
 
 float Ball::getVelocityMult() const { return velocityMult; }
-
-Ball Ball::createBall(float posX, float posY, float veloX, float veloY, float radius)
-{
-	Ball temp;
-
-	temp.position.x = posX;
-	temp.position.y = posY;
-	temp.velocity.x = veloX;
-	temp.velocity.y = veloY;
-	temp.radius = radius;
-
-	return temp;
-}
 
 void Ball::drawColorBall(float radius) const
 {

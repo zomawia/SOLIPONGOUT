@@ -5,20 +5,26 @@
 class BossBall
 {
 	Ball bossBall;
-	int Health;
+	//int BossHealth;
 	Box laser;
+	int font = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
 
 public:
 	
-	int getHealth() const;
+	//int getHealth() const;
 	Ball getBall();
 	
-	BossBall create(BossBall b);
+	BossBall create();
 	void Draw();
 	void FireLasers();
+	Box GetLaser() const;
 	void Update();
-	void reduceHealth(int damage);
+	//void reduceHealth(int damage);
 	bool isCollidingWall();
 	bool isLaserOut() const;
+
+	void BossBall::init(int a_font);
+	void BossBall::reduceHealth(int dmg);
+
 
 };

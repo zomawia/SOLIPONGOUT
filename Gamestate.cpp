@@ -10,6 +10,7 @@ void GameState::CreateGameState()
 	myPaddle = {};
 	myBorder = {};
 	bisGameOver = false;
+	timer = 4;
 
 	tonc_font = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
 
@@ -24,7 +25,7 @@ void GameState::CreateGameState()
 
 	myPaddle = myPaddle.CreateBox(PADDLE_X_POS, PADDLE_Y_POS, paddleLength, paddleHeight);
 	myBorder = myBorder.CreateBox(1, 1, WINDOW_WIDTH - 2, WINDOW_HEIGHT - 2);
-	myBoss = myBoss.create(myBoss);
+	myBoss = myBoss.create();
 	
 
 }
@@ -36,6 +37,13 @@ void GameState::UpdateGameState()
 	{
 		myPaddle.UpdateBox();
 	}	
+
+	for (int i = 0; i < 5; ++i)
+	{		//Update ball location
+		myBall[i].UpdateBall();
+	}
+
+	myBoss.Update();
 
 	// Collision stuff
 	for (int i = 0; i < 5; ++i)
@@ -96,11 +104,9 @@ void GameState::UpdateGameState()
 			{
 				myBall[i].setOut();
 				BallsLeft--;
-			}
-			
+			}			
 		}
 
-		
 		// ball on ball collision
 		for (int j = i+1; j < 5; ++j)
 		{
@@ -110,20 +116,38 @@ void GameState::UpdateGameState()
 			}
 		}
 
+		// ball on boss collision
 		if (myBall[i].isColliding(myBoss.getBall()) )
 		{
 			myBall[i].setVelocity(-myBall[i].getVelocity().x, -myBall[i].getVelocity().y);
+			myBoss.reduceHealth(10);
+			myBall[i].reduceHealth(5);
 		}
+
+		// respawn ball if stuck on boss
+		if (myBall[i].getHealth() <= 0 )
+		{
+			myBall[i] = myBall[i].createBall(randomRange(16, WINDOW_WIDTH - 16), randomRange(WINDOW_HEIGHT / 2, WINDOW_HEIGHT - 16), randomRange(-3, -1),
+				randomRange(-3, -1), 24);		
+		}
+
+		// boss killed get points and respawn boss
+		if (myBoss.getBall().getHealth() <= 0 )
+		{
+			totalPoints += 50;
+			timer -= sfw::getDeltaTime();
+			if (timer <= 0)
+			{
+				myBoss = myBoss.create();
+				timer = 3;
+			}
+			
+		}
+
 	}
-
-	for (int i = 0; i < 5; ++i) 
-	{		//Update ball location
-		myBall[i].UpdateBall();
-	}
-
-	myBoss.Update();
-
-	if (BallsLeft <= 0)
+	
+	if (BallsLeft <= 0 || myPaddle.isBoxColliding(myBoss.GetLaser().getPosition().x + myBoss.GetLaser().getDimension().x,
+		myBoss.GetLaser().getPosition().y) )
 	{
 		bisGameOver = true;
 	}
@@ -150,10 +174,14 @@ void GameState::DrawGameState()
 	else sfw::drawString(tonc_font, std::to_string(totalPoints).c_str(), 
 		WINDOW_WIDTH / 2 - 300, WINDOW_HEIGHT / 2 + 150, 300, 300, 0, ' ', 0xbfbfbf31);
 
-	sfw::drawString(tonc_font, "BALLS:", 5, WINDOW_HEIGHT - 5, 24, 24, 0, ' ', 0xbfbfbfaf);
-	sfw::drawString(tonc_font, std::to_string(BallsLeft).c_str(), 158, WINDOW_HEIGHT - 5, 24, 24, 0, ' ', 0xbfbfbfff);
+	if (!bisGameOver) 
+	{
+		sfw::drawString(tonc_font, "BALLS:", 5, WINDOW_HEIGHT - 5, 24, 24, 0, ' ', 0xbfbfbfaf);
+		sfw::drawString(tonc_font, std::to_string(BallsLeft).c_str(), 158, WINDOW_HEIGHT - 5, 24, 24, 0, ' ', 0xbfbfbfff);
+		myPaddle.DrawBox(BLACK, BLUE);	// paddle
+	}
 
-	myPaddle.DrawBox(BLACK, BLUE);	// paddle
+	
 	myBorder.DrawBox(GREEN, NONE);	// border
 
 	//printf("x: %f, y: %f\n", myPaddle.getPosition().x, myPaddle.getPosition().y);
