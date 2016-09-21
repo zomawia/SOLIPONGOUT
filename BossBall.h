@@ -1,6 +1,7 @@
 #pragma once
 
 #include "solipong.h"
+#include "constded.h"
 
 class BossBall
 {
@@ -8,6 +9,8 @@ class BossBall
 	//int BossHealth;
 	Box laser;
 	int font = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
+	float timer;
+	BOSS_STATE currentState;
 
 public:
 	
@@ -26,5 +29,7 @@ public:
 	void BossBall::init(int a_font);
 	void BossBall::reduceHealth(int dmg);
 
-
+	void setTalk(BOSS_STATE b);
+	BOSS_STATE getTalk() const;
+	void drawTalk(BOSS_STATE b, int tauntSelect);
 };

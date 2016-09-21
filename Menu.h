@@ -8,8 +8,9 @@ class Menu
 	int font;
 	int xhair;
 	float timer;
+	bool isPlaySelected;
 	
-	Box playButton, exitButton;
+	Box playButton, exitButton, creditsButton;
 
 public:
 	void init(int a_font, int a_xhair);

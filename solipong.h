@@ -9,6 +9,7 @@ const int WINDOW_HEIGHT = 600;
 const float PADDLE_Y_POS = WINDOW_HEIGHT / 8;
 const float PADDLE_X_POS = WINDOW_WIDTH / 2 - 50;
 
+extern bool bisSoliActivate;
 
 //const int paddleLength = 200;
 //const int paddleHeight = 12;
@@ -69,7 +70,6 @@ public:
 	float getVelocityMult() const;
 	void drawColorBall(float radius) const;
 	Ball createBall(float posX, float posY, float veloX, float veloY, float radius);
-	//Box createCollisionBox(float x, float y, float radius);
 
 	void doCollision(Ball &b);
 

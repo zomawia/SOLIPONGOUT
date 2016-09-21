@@ -22,6 +22,11 @@
 #include "constded.h"
 #include "Menu.h"
 #include "Gameover.h"
+#include "credits.h"
+
+
+bool bisSoliActivate = false;
+
 
 // Random number generator
 float randomRange(int start, int end)
@@ -39,6 +44,7 @@ void main()
 	Gameover gameOver;
 	GameState gs;
 	BossBall bs;
+	Credits creditToTeam;
 
 	bool quit = false;
 	
@@ -48,6 +54,7 @@ void main()
 	mainMenu.init(gs.block_font, gs.mousecursor);
 	gameOver.init(gs.tonc_font);
 	bs.init(gs.tonc_font);
+	creditToTeam.init(gs.block_font);
 	
 
 	while (sfw::stepContext() && !quit)
@@ -68,6 +75,14 @@ void main()
 			mainMenu.step();
 			mainMenu.draw();
 			state = mainMenu.next();
+			break;
+
+		case ENTER_CREDITS:
+			creditToTeam.play();
+		case CREDITS:
+			creditToTeam.step();
+			creditToTeam.draw();
+			state = creditToTeam.next();
 			break;
 
 		case ENTER_GAME:

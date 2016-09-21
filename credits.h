@@ -1,14 +1,16 @@
 #pragma once
 
 #include "constded.h"
+#include "solipong.h"
 
-class Splash
+class Credits
 {
 	int font;
 	float timer;
 	float mover;
-	float xPos;
-	float xSpot;
+	float moverNum;
+	float yPos;
+	float yCount;
 
 public:
 	void init(int a_font);

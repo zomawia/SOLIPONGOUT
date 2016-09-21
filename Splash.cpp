@@ -2,9 +2,9 @@
 #include <cstdio>
 #include "sfwdraw.h"
 
-void Splash::init(int a_font){ font = a_font;}
+void Splash::init(int a_font) { font = a_font; }
 
-void Splash::play() { timer = 6.f; }
+void Splash::play() { timer = 6.f; mover = 4.f; xPos = 600; xSpot = 600;}
 
 void Splash::draw()
 {
@@ -16,12 +16,20 @@ void Splash::draw()
 	sfw::drawString(font, buffer, 60, 350, 64 * (timer / 6.f), 64 * (timer / 6.f), 0, 0, BLACK);
 	sfw::drawString(font, buffer, 50, 360, 64 * (timer / 6.f), 64 * (timer / 6.f), 0, 0, WHITE);
 
-	sfw::drawString(font, press, 66, 58, 24, 24, 0, 0, BLACK);
-	sfw::drawString(font, press, 64, 60, 24, 24, 0, 0, RED);
-
+	if (xSpot > 62)
+	{
+		sfw::drawString(font, press, xPos * (mover / 4.f),	58, 24, 24, 0, 0, BLACK);
+		sfw::drawString(font, press, xPos * (mover / 4.f),	60, 24, 24, 0, 0, RED);
+		xSpot = xPos *(mover / 4.f);
+	}
+	else
+	{
+		sfw::drawString(font, press, 64, 58, 24, 24, 0, 0, BLACK);
+		sfw::drawString(font, press, 62, 60, 24, 24, 0, 0, RED);
+	}
 }
 
-void Splash::step() { timer -= sfw::getDeltaTime(); }
+void Splash::step() { timer -= sfw::getDeltaTime(); mover -= sfw::getDeltaTime();}
 
 APP_STATE Splash::next()
 {

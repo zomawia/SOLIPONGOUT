@@ -10,7 +10,8 @@ private:
 	
 	const float paddleLength = WINDOW_WIDTH / 4;
 	const float paddleHeight = WINDOW_WIDTH / 30;
-
+	int tauntSelection;
+	float bossTalkTimer;
 	bool bisGameOver;
 	int BallsLeft;
 	int totalPoints;
