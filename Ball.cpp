@@ -15,7 +15,7 @@ Ball Ball::createBall(float posX, float posY, float veloX, float veloY, float ra
 	return temp;
 }
 
-void Ball::setRadius(int r){radius = r;}
+void Ball::setRadius(float r){radius = r;}
 
 void Ball::setPosition(float x, float y){ position.x = x; position.y = y;}
 
@@ -83,6 +83,12 @@ void Ball::doCollision(Ball &b)
 
 void Ball::UpdateBall()
 {
+	// max speed
+	if (velocity.y > 5) velocity.y = 5;
+	if (velocity.y < -5) velocity.y = -5;
+	if (velocity.x > 5) velocity.x = 5;
+	if (velocity.x < -5) velocity.x = -5;
+	
 		position.x += velocity.x;
 		position.y += velocity.y;
 }

@@ -9,7 +9,7 @@ void Credits::play() { timer = 6.f; moverNum = 8.f; yPos = 80; yCount = 200; mov
 void Credits::draw()
 {
 	char p1[64], p2[64], p3[64], p4[64];
-	char exit[64];
+
 	sprintf_s(p1, "Programming");
 	sprintf_s(p2, "Zomawia Sailo");
 	sprintf_s(p3, "'Artwork'");
@@ -53,7 +53,8 @@ void Credits::draw()
 			randomRange(14, 46), randomRange(4, 14), randomRange(0, 360), 0, BLUE);
 		sfw::drawString(font, p2, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
 			randomRange(4, 42), randomRange(4, 40), randomRange(0, 360), 0, YELLOW);
-		bisSoliActivate = true;
+		if (bisSoliActivate == true) bisSoliActivate = false;
+		else bisSoliActivate = true;
 	}
 }
 

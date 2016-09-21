@@ -71,7 +71,7 @@ void Menu::draw()
 	//printf("x1: %f y1: %f x2: %f y2: %f\n", playButton.getPosition().x, playButton.getPosition().y,
 	//	playButton.getPosition().x + playButton.getDimension().x, playButton.getDimension().y);
 
-	sfw::drawTexture(xhair, sfw::getMouseX(), sfw::getMouseY(), sfw::getTextureWidth(xhair) / 6, sfw::getTextureHeight(xhair) / 6, 45, true, 0, 0x88ffffaf);
+	sfw::drawTexture(xhair, sfw::getMouseX(), sfw::getMouseY(), sfw::getTextureWidth(xhair) / 6, sfw::getTextureHeight(xhair) / 6, 0, true, 0, 0x88ffffaf);
 }
 
 void Menu::step()

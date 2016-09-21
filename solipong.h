@@ -53,7 +53,7 @@ private:
 	int health;
 
 public:		
-	void setRadius(int r);
+	void setRadius(float r);
 	void setPosition(float x, float y);
 	void setVelocity(float x, float y);
 	void setVelocityMult(float x);

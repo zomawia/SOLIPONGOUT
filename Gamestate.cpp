@@ -10,9 +10,10 @@ void GameState::CreateGameState()
 	myPaddle = {};
 	myBorder = {};
 	bisGameOver = false;
-	timer = 4;
+	timer = 5;
 
 	tonc_font = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
+	block_font = sfw::loadTextureMap("./res/fontmap.png", 16, 16);
 
 	// create balls in array with function
 
@@ -58,7 +59,7 @@ void GameState::UpdateGameState()
 			{
 				myBall[i].setPosition(myBall[i].getPosition().x, WINDOW_HEIGHT - myBall[i].getRadius());
 				myBall[i].setVelocity(randomRange(-4, 4),
-					-myBall[i].getVelocity().y + -(totalPoints / 200));
+					-myBall[i].getVelocity().y + -(totalPoints / 250));
 			}
 
 			if (myBall[i].getPosition().x + myBall[i].getRadius() >= WINDOW_WIDTH)
@@ -154,7 +155,7 @@ void GameState::UpdateGameState()
 				{
 					totalPoints += 20;
 					myBoss = myBoss.create();
-					timer = 3;
+					timer = 5;
 				}
 
 			}
@@ -176,20 +177,25 @@ void GameState::DrawGameState()
 	if (bisSoliActivate == true)
 	{
 		char buffer[64];
-		sprintf_s(buffer, "SOLIPONGOUT");
+		sprintf_s(buffer, "*");
 
-		sfw::drawString(tonc_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
-			randomRange(1, 50), randomRange(14, 60), randomRange(0, 360), 0, BLACK);
-		sfw::drawString(tonc_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
-			randomRange(1, 70), randomRange(14, 60), randomRange(0, 360), 0, RED);
-		sfw::drawString(tonc_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
-			randomRange(1, 50), randomRange(14, 60), randomRange(0, 360), 0, BLACK);
-		sfw::drawString(tonc_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
-			randomRange(1, 70), randomRange(14, 60), randomRange(0, 360), 0, RED);
-		sfw::drawString(tonc_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
-			randomRange(1, 50), randomRange(14, 60), randomRange(0, 360), 0, BLACK);
-		sfw::drawString(tonc_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
-			randomRange(1, 70), randomRange(14, 60), randomRange(0, 360), 0, RED);
+		sfw::drawString(block_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
+			randomRange(1, 50), randomRange(14, 60), randomRange(0, 360), 0, 0x8888880F);
+		sfw::drawString(block_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
+			randomRange(1, 70), randomRange(14, 60), randomRange(0, 360), 0, 0xbfbfbf31);
+		sfw::drawString(block_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
+			randomRange(1, 50), randomRange(14, 60), randomRange(0, 360), 0, 0x8888880F);
+		sfw::drawString(block_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
+			randomRange(1, 70), randomRange(14, 60), randomRange(0, 360), 0, 0xbfbfbf31);
+		sfw::drawString(block_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
+			randomRange(1, 50), randomRange(14, 60), randomRange(0, 360), 0, 0x8888880F);
+		sfw::drawString(block_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
+			randomRange(1, 70), randomRange(14, 60), randomRange(0, 360), 0, 0xbfbfbf31);
+		sfw::drawString(block_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
+			randomRange(1, 50), randomRange(14, 60), randomRange(0, 360), 0, 0x8888880F);
+		sfw::drawString(block_font, buffer, randomRange(0, WINDOW_WIDTH), randomRange(0, WINDOW_HEIGHT),
+			randomRange(1, 70), randomRange(14, 60), randomRange(0, 360), 0, 0xbfbfbf31);
+
 	}
 	
 	for (int i = 0; i < 5; ++i)
